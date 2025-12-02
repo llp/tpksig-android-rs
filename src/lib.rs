@@ -42,6 +42,13 @@ pub extern "system" fn Java_com_quicktvui_sign_TpkSig_verify(
         Err(TpkSigError::UnsupportedAlgorithm(_)) => 11,
         Err(TpkSigError::DigestMismatch) => 12,
         Err(TpkSigError::InvalidApkStructure(_)) => 13,
+        Err(TpkSigError::InvalidStartSignature) => 14,
+        Err(TpkSigError::InvalidEndSignature) => 15,
+        Err(TpkSigError::EocdNotFound) => 16,
+        Err(TpkSigError::InvalidEocd) => 17,
+        Err(TpkSigError::Format(_)) => 18,
+        Err(TpkSigError::Signature(_)) => 19,
+        Err(TpkSigError::Padding(_)) => 20,
     }
 }
 
