@@ -488,14 +488,14 @@ name = "tpksig"
 version = "0.1.0"
 dependencies = [
  "jni",
- "tpksig 0.2.1",
+ "tpksig 0.2.2",
 ]
 
 [[package]]
 name = "tpksig"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "511c22cad87189f182e1f941df909626c6a2828332f36b476bcc2670549e0f3d"
+checksum = "9b43def389929e98b72cc17886a7bdf356cad2148c54d783a55fc7f47b2bc432"
 dependencies = [
  "md5",
  "rsa",

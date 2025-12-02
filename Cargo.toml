@@ -8,5 +8,5 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-tpksig = "0.2.1"
+tpksig = "0.2.2"
 jni = "0.21.1"
