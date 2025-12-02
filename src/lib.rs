@@ -3,6 +3,7 @@ use jni::sys::{jint, jobject};
 use jni::JNIEnv;
 use std::path::PathBuf;
 
+use tpksig::error::TpkSigError;
 use tpksig::scheme_v2::{SignatureSchemeV2, Signers as V2Signers};
 use tpksig::scheme_v3::{SignatureSchemeV3, Signers as V3Signers};
 use tpksig::{RawData, SigningBlock, ValueSigningBlock};
@@ -26,7 +27,22 @@ pub extern "system" fn Java_com_quicktvui_sign_TpkSig_verify(
         Ok(t) => t,
         Err(_) => return 1,
     };
-    tpk.verify().map(|_| 0).unwrap_or(1)
+    // 3. 调用 verify 并映射错误类型
+    match tpk.verify() {
+        Ok(_) => 0,
+        Err(TpkSigError::Io(_)) => 2,
+        Err(TpkSigError::ApkIsRaw) => 3,
+        Err(TpkSigError::NoSigner) => 4,
+        Err(TpkSigError::NoSignature) => 5,
+        Err(TpkSigError::NoDigest) => 6,
+        Err(TpkSigError::InvalidSignedData) => 7,
+        Err(TpkSigError::V3NotSupported) => 8,
+        Err(TpkSigError::VerificationFailed(_)) => 9,
+        Err(TpkSigError::PubKeyError(_)) => 10,
+        Err(TpkSigError::UnsupportedAlgorithm(_)) => 11,
+        Err(TpkSigError::DigestMismatch) => 12,
+        Err(TpkSigError::InvalidApkStructure(_)) => 13,
+    }
 }
 
 #[no_mangle]
